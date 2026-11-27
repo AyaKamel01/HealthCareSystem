@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HealthCareSystem.DAL.Entities
+﻿namespace HealthCareSystem.DAL.Entities
 {
-    public class Patient
+    public class Patient : BaseEntity
     {
+        public required string Name { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
-        public  int Id { get; set; }
-        public  required string Name { get; set; } 
-        public  DateTime DateOfBirth { get; set; }
-
-        public  ICollection <Appointment> Appointments { get; set; } = new List<Appointment>(); 
-
+        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }
