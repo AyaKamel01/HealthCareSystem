@@ -1,0 +1,92 @@
+﻿@model HealthCareSystem.PL.ViewModels.PatientIndexViewModel
+
+@{
+    ViewData["Title"] = "Patients";
+}
+
+<h1>Patients</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Patient</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="input-group mb-3">
+        <input type="text"
+               name="searchTerm"
+               value="@Model.SearchTerm"
+               class="form-control"
+               placeholder="Search by patient name..." />
+
+        <button type="submit" class="btn btn-primary">Search</button>
+
+        <a asp-action="Index" class="btn btn-secondary">Clear</a>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Date Of Birth</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var patient in Model.Patients)
+        {
+            <tr>
+                <td>@patient.Id</td>
+                <td>@patient.Name</td>
+                <td>@patient.DateOfBirth.ToShortDateString()</td>
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@patient.Id"
+                       class="btn btn-outline-success">Details</a>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@patient.Id">Edit</a> |
+
+                    <a asp-action="Delete"
+                       asp-route-id="@patient.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!Model.Patients.Any())
+{
+    <p>No patients found.</p>
+}
+
+@if (Model.TotalPages > 1)
+{
+    <div class="mt-3">
+        @if (Model.HasPreviousPage)
+        {
+            <a asp-action="Index"
+               asp-route-pageIndex="@(Model.PageIndex - 1)"
+               asp-route-searchTerm="@Model.SearchTerm"
+               class="btn btn-outline-primary">
+                Previous
+            </a>
+        }
+
+        <span class="mx-2">
+            Page @Model.PageIndex of @Model.TotalPages
+        </span>
+
+        @if (Model.HasNextPage)
+        {
+            <a asp-action="Index"
+               asp-route-pageIndex="@(Model.PageIndex + 1)"
+               asp-route-searchTerm="@Model.SearchTerm"
+               class="btn btn-outline-primary">
+                Next
+            </a>
+        }
+    </div>
+}

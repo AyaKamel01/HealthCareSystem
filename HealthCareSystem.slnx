@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="HealthCareSystem.BLL/HealthCareSystem.BLL.csproj" />
   <Project Path="HealthCareSystem.DAL/HealthCareSystem.DAL.csproj" Id="2d6bdf2e-5557-44c8-8060-10834f2ff24a" />
+  <Project Path="HealthCareSystem.PL/HealthCareSystem.PL.csproj" Id="ac869fc2-5a0b-4086-884f-b872ee44d6a4" />
   <Project Path="HealthCareSystem/HealthCareSystem.api.csproj" />
 </Solution>

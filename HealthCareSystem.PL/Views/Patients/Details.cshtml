@@ -1,0 +1,23 @@
+﻿@model HealthCareSystem.PL.ViewModels.PatientViewModel
+
+@{
+    ViewData["Title"] = "Patient Details";
+}
+
+<h1>Patient Details</h1>
+
+<div class="card p-3">
+    <dl class="row">
+        <dt class="col-sm-3">Patient ID</dt>
+        <dd class="col-sm-9">@Model.Id</dd>
+
+        <dt class="col-sm-3">Patient Name</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">Date Of Birth</dt>
+        <dd class="col-sm-9">@Model.DateOfBirth.ToShortDateString()</dd>
+    </dl>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Patients</a>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mt-3">Edit</a>
