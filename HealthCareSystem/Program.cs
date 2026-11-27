@@ -90,6 +90,18 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<IJwtService, JwtService>();
 
+var corsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
+
+builder.Services.AddCors(options => options.AddPolicy("ConfigurationOrigins", policy =>
+{
+    if (corsOrigins.Length > 0)
+        policy.WithOrigins(corsOrigins);
+    else
+        policy.AllowAnyOrigin();
+
+    policy.AllowAnyHeader().AllowAnyMethod();
+}));
+
 var app = builder.Build();
 
 //app.UseMiddleware<ExceptionHandlingMiddleware>();
@@ -101,6 +113,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseCors("ConfigurationOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();
